@@ -17,7 +17,9 @@ const users = [
   { id: 10, name: "Patricia Clark", email: "patriciaclark@example.com" },
 ];
 
+// MIDDLEWARE
 app.use(cors())
+app.use(express.json())
 
 app.get("/", (req, res) => {
   res.send("Welcome to the server home page");
@@ -26,6 +28,16 @@ app.get("/", (req, res) => {
 app.get("/users", (req, res) => {
   res.send(users);
 });
+
+app.post('/users',(req,res)=>{
+    console.log("Hitting post api",req.body)
+    const newUser=req.body;
+    const id=users.length+1;
+    newUser.id=id
+    users.push(newUser)
+    res.send(newUser)
+      
+})
 
 app.listen(port,()=>{
     console.log("listening to port=>",port);
